@@ -49,7 +49,7 @@ open class SKPhotoBrowser: UIViewController {
     
     // delegate
     fileprivate let animator = SKAnimator()
-    open weak var delegate: SKPhotoBrowserDelegate?
+    @objc open weak var delegate: SKPhotoBrowserDelegate?
     
     // photos
     open var photos: [SKPhotoProtocol] = [SKPhotoProtocol]()
@@ -67,12 +67,14 @@ open class SKPhotoBrowser: UIViewController {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
+    @objc
     public override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         super.init(nibName: nil, bundle: nil)
         setup()
     }
-    
+
+    @objc
     public convenience init(photos: [SKPhotoProtocol]) {
         self.init(nibName: nil, bundle: nil)
         let pictures = photos.flatMap { $0 }
@@ -82,6 +84,7 @@ open class SKPhotoBrowser: UIViewController {
         }
     }
     
+    @objc
     public convenience init(originImage: UIImage, photos: [SKPhotoProtocol], animatedFromView: UIView) {
         self.init(nibName: nil, bundle: nil)
         animator.senderOriginImage = originImage
@@ -272,6 +275,7 @@ public extension SKPhotoBrowser {
 // MARK: - Public Function For Browser Control
 
 public extension SKPhotoBrowser {
+    @objc
     func initializePageIndex(_ index: Int) {
         var i = index
         if index >= numberOfPhotos {
@@ -288,7 +292,7 @@ public extension SKPhotoBrowser {
             }
         }
     }
-    
+    @objc
     func jumpToPageAtIndex(_ index: Int) {
         if index < numberOfPhotos {
             if !isEndAnimationByToolBar {
@@ -302,7 +306,7 @@ public extension SKPhotoBrowser {
         }
         hideControlsAfterDelay()
     }
-    
+    @objc
     func photoAtIndex(_ index: Int) -> SKPhotoProtocol {
         return photos[index]
     }
@@ -314,15 +318,15 @@ public extension SKPhotoBrowser {
     @objc func gotoNextPage() {
         jumpToPageAtIndex(currentPageIndex + 1)
     }
-    
+    @objc
     func showDeleteButton(bool: Bool) {
         self.showDeleteButton = bool
     }
-    
+    @objc
     func showToolbar(bool: Bool) {
         self.showToolBar = bool
     }
-    
+    @objc
     func cancelControlHiding() {
         if controlVisibilityTimer != nil {
             controlVisibilityTimer.invalidate()
@@ -391,16 +395,16 @@ public extension SKPhotoBrowser {
             present(activityViewController, animated: true, completion: nil)
         }
     }
-    
+    @objc
     func getCurrentPageIndex() -> Int {
         return currentPageIndex
     }
-    
+    @objc
     func addPhotos(photos: [SKPhotoProtocol]){
         self.photos.append(contentsOf: photos)
         self.reloadData()
     }
-    
+    @objc
     func insertPhotos(photos: [SKPhotoProtocol], at index: Int){
         self.photos.insert(contentsOf: photos, at: index)
         self.reloadData()
@@ -420,11 +424,11 @@ internal extension SKPhotoBrowser {
             deleteButton.frame = deleteButton.showFrame
         }
     }
-    
+    @objc
     func pageDisplayedAtIndex(_ index: Int) -> SKZoomingScrollView? {
         return pagingScrollView.pageDisplayedAtIndex(index)
     }
-    
+    @objc
     func getImageFromView(_ sender: UIView) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(sender.frame.size, true, 0.0)
         sender.layer.render(in: UIGraphicsGetCurrentContext()!)

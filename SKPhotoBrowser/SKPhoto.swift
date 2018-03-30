@@ -30,12 +30,12 @@ open class SKPhoto: NSObject, SKPhotoProtocol {
     override init() {
         super.init()
     }
-    
+    @objc
     convenience init(image: UIImage) {
         self.init()
         underlyingImage = image
     }
-    
+    @objc
     convenience init(url: String) {
         self.init()
         photoURL = url
@@ -112,14 +112,15 @@ open class SKPhoto: NSObject, SKPhotoProtocol {
 // MARK: - Static Function
 
 extension SKPhoto {
+    @objc
     public static func photoWithImage(_ image: UIImage) -> SKPhoto {
         return SKPhoto(image: image)
     }
-    
+    @objc
     public static func photoWithImageURL(_ url: String) -> SKPhoto {
         return SKPhoto(url: url)
     }
-    
+    @objc
     public static func photoWithImageURL(_ url: String, holder: UIImage?) -> SKPhoto {
         return SKPhoto(url: url, holder: holder)
     }
